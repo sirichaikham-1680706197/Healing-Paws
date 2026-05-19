@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}จัดการการชำระเงิน - ผู้ดูแลระบบ{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>เพิ่มการชำระเงิน</h5>
+                <form method="POST">
+                    <div class="mb-3"><label class="form-label">การนัดหมาย</label><select class="form-select" name="appointment_id" required><option value="">เลือกการนัดหมาย</option>{% for appointment in appointments %}<option value="{{ appointment.id }}">{{ appointment.pet.pet_name }} / {{ appointment.doctor.doctor_name }} วันที่ {{ appointment.appointment_date }}</option>{% endfor %}</select></div>
+                    <div class="mb-3"><label class="form-label">จำนวนเงิน</label><input type="number" step="0.01" class="form-control" name="amount" required></div>
+                    <div class="mb-3"><label class="form-label">สถานะ</label><select class="form-select" name="payment_status" required><option value="Paid">ชำระแล้ว</option><option value="Pending">รอดำเนินการ</option></select></div>
+                    <div class="mb-3"><label class="form-label">วันที่</label><input type="date" class="form-control" name="payment_date"></div>
+                    <button class="btn btn-primary">บันทึกการชำระเงิน</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>ประวัติการชำระเงิน</h5>
+                <div class="table-responsive">
+                <table class="table table-hover align-middle"><thead class="table-light"><tr><th>การนัดหมาย</th><th>จำนวนเงิน</th><th>สถานะ</th><th>วันที่</th></tr></thead><tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.appointment.pet.pet_name }} / {{ payment.appointment.doctor.doctor_name }}</td>
+                        <td>{{ payment.amount }} ฿</td>
+                        <td>{{ payment.payment_status }}</td>
+                        <td>{{ payment.payment_date }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="text-center">ไม่มีประวัติการชำระเงิน</td></tr>
+                    {% endfor %}
+                </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

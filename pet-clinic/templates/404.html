@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}ไม่พบหน้า{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-4">404</h1>
+    <p class="lead">ไม่พบหน้าที่คุณเรียก</p>
+    <a href="{{ url_for('auth.home') }}" class="btn btn-primary">กลับไปหน้าหลัก</a>
+</div>
+{% endblock %}

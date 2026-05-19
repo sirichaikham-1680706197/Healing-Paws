@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}ประวัติการรักษา - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>ประวัติการรักษา</h2>
+        <p class="text-muted">ดูประวัติการรักษาของสัตว์เลี้ยง</p>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>สัตว์เลี้ยง</th>
+                <th>แพทย์</th>
+                <th>การวินิจฉัย</th>
+                <th>ยา</th>
+                <th>วันที่</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for treatment in treatments %}
+            <tr>
+                <td>{{ treatment.appointment.pet.pet_name }}</td>
+                <td>{{ treatment.appointment.doctor.doctor_name }}</td>
+                <td>{{ treatment.diagnosis }}</td>
+                <td>{{ treatment.medicine or '-' }}</td>
+                <td>{{ treatment.treatment_date }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="text-center">ไม่มีประวัติการรักษา</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

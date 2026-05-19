@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}การชำระเงิน - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>การชำระเงิน</h2>
+        <p class="text-muted">ดูสถานะการชำระเงินและประวัติ</p>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>การนัดหมาย</th>
+                <th>จำนวนเงิน</th>
+                <th>สถานะ</th>
+                <th>วันที่</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.appointment.pet.pet_name }} / {{ payment.appointment.doctor.doctor_name }}</td>
+                <td>{{ payment.amount }} ฿</td>
+                <td>{{ payment.payment_status }}</td>
+                <td>{{ payment.payment_date }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-center">ไม่มีประวัติการชำระเงิน</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

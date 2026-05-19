@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}การนัดหมาย - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>การนัดหมาย</h2>
+        <p class="text-muted">ดูประวัติการนัดหมายของคุณ</p>
+    </div>
+    <a href="{{ url_for('appointment.book_appointment') }}" class="btn btn-primary">จองคิวนัดหมาย</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>สัตว์เลี้ยง</th>
+                <th>แพทย์</th>
+                <th>วันที่</th>
+                <th>เวลา</th>
+                <th>สถานะ</th>
+                <th>หมายเหตุ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.pet.pet_name }}</td>
+                <td>{{ appointment.doctor.doctor_name }}</td>
+                <td>{{ appointment.appointment_date }}</td>
+                <td>{{ appointment.appointment_time }}</td>
+                <td>{{ appointment.status }}</td>
+                <td>{{ appointment.note or '-' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="text-center">ไม่มีการนัดหมาย</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

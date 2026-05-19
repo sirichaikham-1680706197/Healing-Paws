@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}สัตว์เลี้ยง - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>สัตว์เลี้ยง</h2>
+        <p class="text-muted">จัดการข้อมูลสัตว์เลี้ยงของคุณ</p>
+    </div>
+    <a href="{{ url_for('user.add_pet') }}" class="btn btn-primary">เพิ่มสัตว์เลี้ยง</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>รูปภาพ</th>
+                <th>ชื่อ</th>
+                <th>ชนิด</th>
+                <th>สายพันธุ์</th>
+                <th>อายุ</th>
+                <th>เพศ</th>
+                <th class="text-end">จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pet in pets %}
+            <tr>
+                <td><img src="{{ url_for('static', filename='uploads/' ~ pet.image) if pet.image else 'https://via.placeholder.com/70?text=Pet' }}" alt="{{ pet.pet_name }}" width="70" class="rounded"></td>
+                <td>{{ pet.pet_name }}</td>
+                <td>{{ pet.species }}</td>
+                <td>{{ pet.breed }}</td>
+                <td>{{ pet.age or '-' }}</td>
+                <td>{{ pet.gender or '-' }}</td>
+                <td class="text-end">
+                    <a href="{{ url_for('user.edit_pet', pet_id=pet.id) }}" class="btn btn-sm btn-outline-secondary">แก้ไข</a>
+                    <a href="{{ url_for('user.delete_pet', pet_id=pet.id) }}" class="btn btn-sm btn-outline-danger">ลบ</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7" class="text-center">ไม่มีข้อมูลสัตว์เลี้ยง</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

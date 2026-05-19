@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}จัดการสัตว์เลี้ยง - ผู้ดูแลระบบ{% endblock %}
+{% block content %}
+<div class="mb-4"><h2>จัดการสัตว์เลี้ยง</h2><p class="text-muted">ดูข้อมูลสัตว์เลี้ยงทั้งหมดในระบบ</p></div>
+<div class="table-responsive">
+<table class="table table-hover align-middle"><thead class="table-light"><tr><th>เจ้าของ</th><th>ชื่อสัตว์เลี้ยง</th><th>ชนิด</th><th>สายพันธุ์</th><th>อายุ</th><th>เพศ</th></tr></thead><tbody>
+    {% for pet in pets %}
+    <tr>
+        <td>{{ pet.owner.username }}</td>
+        <td>{{ pet.pet_name }}</td>
+        <td>{{ pet.species }}</td>
+        <td>{{ pet.breed }}</td>
+        <td>{{ pet.age or '-' }}</td>
+        <td>{{ pet.gender or '-' }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="text-center">ไม่มีประวัติสัตว์เลี้ยง</td></tr>
+    {% endfor %}
+</tbody></table>
+</div>
+{% endblock %}

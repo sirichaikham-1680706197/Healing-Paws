@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}จัดการแพทย์ - ผู้ดูแลระบบ{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6"><h2>แพทย์</h2><p class="text-muted">เพิ่ม แก้ไข หรือลบข้อมูลแพทย์</p></div>
+</div>
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5>เพิ่มแพทย์</h5>
+                <form method="POST">
+                    <div class="mb-3"><label class="form-label">ชื่อ</label><input type="text" name="doctor_name" class="form-control" required></div>
+                    <div class="mb-3"><label class="form-label">ความเชี่ยวชาญ</label><input type="text" name="specialty" class="form-control" required></div>
+                    <div class="mb-3"><label class="form-label">เบอร์โทรศัพท์</label><input type="text" name="phone" class="form-control"></div>
+                    <div class="mb-3"><label class="form-label">อีเมล</label><input type="email" name="email" class="form-control"></div>
+                    <button class="btn btn-primary">บันทึกแพทย์</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>รายชื่อแพทย์</h5>
+                <div class="table-responsive">
+                <table class="table table-hover align-middle"><thead class="table-light"><tr><th>ชื่อ</th><th>ความเชี่ยวชาญ</th><th>ติดต่อ</th><th class="text-end">จัดการ</th></tr></thead><tbody>
+                    {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.doctor_name }}</td><td>{{ doctor.specialty }}</td><td>{{ doctor.phone }}<br>{{ doctor.email }}</td>
+                        <td class="text-end"><a href="{{ url_for('admin.delete_doctor', doctor_id=doctor.id) }}" class="btn btn-sm btn-outline-danger">ลบ</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="text-center">ไม่มีแพทย์</td></tr>
+                    {% endfor %}
+                </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}วัคซีน - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>วัคซีน</h2>
+        <p class="text-muted">ดูช้อมูลวัคซีนของสัตว์เลี้ยง</p>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>สัตว์เลี้ยง</th>
+                <th>วัคซีน</th>
+                <th>วันที่</th>
+                <th>วันนัดครั้งถัดไป</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vaccine in vaccines %}
+            <tr>
+                <td>{{ vaccine.pet.pet_name }}</td>
+                <td>{{ vaccine.vaccine_name }}</td>
+                <td>{{ vaccine.vaccine_date }}</td>
+                <td>{{ vaccine.next_due_date or '-' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-center">ไม่มีบันทึกวัคซีน</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}เพิ่มการรักษา - ผู้ดูแลระบบ{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3>เพิ่มการรักษาสำหรับ {{ appointment.pet.pet_name }}</h3>
+                <form method="POST">
+                    <div class="mb-3"><label class="form-label">อาการ</label><textarea class="form-control" name="symptoms" required></textarea></div>
+                    <div class="mb-3"><label class="form-label">การวินิจฉัย</label><textarea class="form-control" name="diagnosis" required></textarea></div>
+                    <div class="mb-3"><label class="form-label">รายละเอียดการรักษา</label><textarea class="form-control" name="treatment_detail" required></textarea></div>
+                    <div class="mb-3"><label class="form-label">ยา</label><input class="form-control" name="medicine"></div>
+                    <div class="mb-3"><label class="form-label">วันที่</label><input class="form-control" type="date" name="treatment_date"></div>
+                    <button class="btn btn-primary">บันทึกการรักษา</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

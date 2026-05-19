@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ระบบจัดการคลินิกรักษาสัตว์{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('auth.home') }}">คลินิกรักษาสัตว์</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.dashboard') }}">หน้าหลัก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">ออกจากระบบ</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">เข้าสู่ระบบ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">สมัครสมาชิก</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        {% if current_user.is_authenticated %}
+        <div class="col-lg-2 d-none d-lg-block bg-light sidebar py-4">
+            <div class="sidebar-sticky">
+                <h5 class="px-3">เมนู</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.dashboard') }}"><i class="bi bi-speedometer2"></i> หน้าหลัก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.pets') }}"><i class="bi bi-paw-fill"></i> สัตว์เลี้ยง</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.appointments') }}"><i class="bi bi-calendar-check"></i> การนัดหมาย</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.treatments') }}"><i class="bi bi-heart-pulse"></i> ประวัติการรักษา</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.vaccines') }}"><i class="bi bi-archive-fill"></i> วัคซีน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('user.payments') }}"><i class="bi bi-cash-stack"></i> การชำระเงิน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('appointment.book_appointment') }}"><i class="bi bi-plus-square"></i> จองคิวนัดหมาย</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('appointment.search') }}"><i class="bi bi-search"></i> ค้นหา</a></li>
+                    {% if current_user.is_admin() %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.dashboard') }}"><i class="bi bi-shield-lock"></i> ผู้ดูแลระบบ</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <main class="{% if current_user.is_authenticated %}col-lg-10 ms-sm-auto px-4 py-4{% else %}col-12 px-4 py-4{% endif %}">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

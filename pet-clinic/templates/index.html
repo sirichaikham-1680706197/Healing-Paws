@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}ระบบจัดการคลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="display-5">ระบบจัดการคลินิกรักษาสัตว์</h1>
+    <p class="lead">ระบบจัดการคลินิกรักษาสัตว์ พร้อมระบบผู้ใช้และผู้ดูแล</p>
+    <a class="btn btn-primary btn-lg me-2" href="{{ url_for('auth.login') }}">เข้าสู่ระบบ</a>
+    <a class="btn btn-outline-primary btn-lg" href="{{ url_for('auth.register') }}">สมัครสมาชิก</a>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">จัดการสัตว์เลี้ยง</h5>
+                <p class="card-text">เพิ่ม แก้ไข และลบข้อมูลสัตว์เลี้ยงของคุณได้อย่างสะดวก</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">นัดหมายสัตวแพทย์</h5>
+                <p class="card-text">จองเวลาพบแพทย์และติดตามประวัติการนัดหมายได้ทุกเมื่อ</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title">ระบบผู้ดูแล</h5>
+                <p class="card-text">ผู้ดูแลระบบสามารถดูแลผู้ใช้ แพทย์ วัคซีน การรักษา และการชำระเงินได้</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

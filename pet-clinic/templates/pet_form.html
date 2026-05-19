@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'แก้ไขสัตว์เลี้ยง' if pet else 'เพิ่มสัตว์เลี้ยง' }} - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3>{{ 'แก้ไขสัตว์เลี้ยง' if pet else 'เพิ่มสัตว์เลี้ยงใหม่' }}</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">ชื่อสัตว์เลี้ยง</label>
+                        <input type="text" name="pet_name" class="form-control" value="{{ pet.pet_name if pet else '' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ชนิด</label>
+                        <select class="form-select" name="species" required>
+                            <option value="">เลือกประเภทสัตว์เลี้ยง</option>
+                            <option value="หมา" {% if pet and pet.species == 'หมา' %}selected{% endif %}>หมา</option>
+                            <option value="แมว" {% if pet and pet.species == 'แมว' %}selected{% endif %}>แมว</option>
+                            <option value="เสือ" {% if pet and pet.species == 'เสือ' %}selected{% endif %}>เสือ</option>
+                            <option value="กระต่าย" {% if pet and pet.species == 'กระต่าย' %}selected{% endif %}>กระต่าย</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-6">
+                            <label class="form-label">สายพันธุ์</label>
+                            <input type="text" name="breed" class="form-control" value="{{ pet.breed if pet else '' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">อายุ</label>
+                            <input type="number" name="age" class="form-control" value="{{ pet.age if pet else '' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">เพศ</label>
+                            <input type="text" name="gender" class="form-control" value="{{ pet.gender if pet else '' }}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-6">
+                            <label class="form-label">น้ำหนัก (กก.)</label>
+                            <input type="text" name="weight" class="form-control" value="{{ pet.weight if pet else '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">รูปภาพ</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">บันทึก</button>
+                    <a href="{{ url_for('user.pets') }}" class="btn btn-secondary">ยกเลิก</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}จองคิวนัดหมาย - คลินิกรักษาสัตว์{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3>จองคิวนัดหมาย</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">สัตว์เลี้ยง</label>
+                        <select class="form-select" name="pet_id" required>
+                            <option value="">เลือกสัตว์เลี้ยง</option>
+                            {% for pet in pets %}
+                            <option value="{{ pet.id }}">{{ pet.pet_name }} ({{ pet.species }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">แพทย์</label>
+                        <select class="form-select" name="doctor_id" required>
+                            <option value="">เลือกแพทย์</option>
+                            {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.doctor_name }} ({{ doctor.specialty }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">วันที่</label>
+                            <input type="date" name="appointment_date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">เวลา</label>
+                            <input type="time" name="appointment_time" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">หมายเหตุ</label>
+                        <textarea name="note" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">จองคิวนัดหมาย</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

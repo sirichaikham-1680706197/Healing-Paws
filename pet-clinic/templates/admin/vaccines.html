@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}จัดการวัคซีน - ผู้ดูแลระบบ{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>เพิ่มวัคซีน</h5>
+                <form method="POST">
+                    <div class="mb-3"><label class="form-label">สัตว์เลี้ยง</label><select class="form-select" name="pet_id" required><option value="">เลือกสัตว์เลี้ยง</option>{% for pet in pets %}<option value="{{ pet.id }}">{{ pet.pet_name }} ({{ pet.owner.username }})</option>{% endfor %}</select></div>
+                    <div class="mb-3"><label class="form-label">ชื่อวัคซีน</label><input class="form-control" name="vaccine_name" required></div>
+                    <div class="mb-3 row"><div class="col-md-6"><label class="form-label">วันที่</label><input class="form-control" type="date" name="vaccine_date" required></div><div class="col-md-6"><label class="form-label">วันนัดครั้งถัดไป</label><input class="form-control" type="date" name="next_due_date"></div></div>
+                    <button class="btn btn-primary">เพิ่มวัคซีน</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>บันทึกวัคซีน</h5>
+                <div class="table-responsive">
+                <table class="table table-hover align-middle"><thead class="table-light"><tr><th>สัตว์เลี้ยง</th><th>ชื่อ</th><th>วันที่</th><th>วันนัดครั้งถัดไป</th><th class="text-end">จัดการ</th></tr></thead><tbody>
+                    {% for vaccine in vaccines %}
+                    <tr>
+                        <td>{{ vaccine.pet.pet_name }}</td><td>{{ vaccine.vaccine_name }}</td><td>{{ vaccine.vaccine_date }}</td><td>{{ vaccine.next_due_date or '-' }}</td>
+                        <td class="text-end"><a href="{{ url_for('admin.delete_vaccine', vaccine_id=vaccine.id) }}" class="btn btn-sm btn-outline-danger">ลบ</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" class="text-center">ไม่มีบันทึกวัคซีน</td></tr>
+                    {% endfor %}
+                </tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
